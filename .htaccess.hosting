@@ -1,0 +1,10 @@
+# .htaccess for Laravel on Shared Hosting (Subfolder Method)
+# Place this file in your root folder (public_html)
+# Only use if your Laravel app is in a subfolder like public_html/track-app/
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect to public folder
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

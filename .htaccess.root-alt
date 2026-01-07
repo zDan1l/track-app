@@ -1,0 +1,31 @@
+# .htaccess for Laravel on Shared Hosting (Root Method)
+# Use this if you want to copy CONTENTS of public/ to public_html root
+# This is the SIMPLEST method for shared hosting
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Front Controller
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Security
+Options -Indexes
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# PHP Version (uncomment if needed)
+# AddHandler application/x-httpd-php82 .php

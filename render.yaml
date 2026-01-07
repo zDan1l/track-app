@@ -1,0 +1,38 @@
+services:
+  # Web Service
+  - type: web
+    name: track-app
+    env: php
+    region: singapore
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan key:generate --force
+      php artisan storage:link
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+    startCommand: php artisan serve --host=0.0.0.0 --port=10000
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: LOG_CHANNEL
+        value: errorlog
+      - key: LOG_LEVEL
+        value: error
+    disk:
+      name: storage
+      mountPath: /opt/render/project/storage
+      sizeGB: 1
+
+  # PostgreSQL Database
+  - type: pserv
+    name: track-app-db
+    env: docker
+    region: singapore
+    databaseName: track_app
+    user: track_user
+    plan: free
