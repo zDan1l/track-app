@@ -6,7 +6,9 @@
       "Bash(composer require:*)",
       "Bash(curl:*)",
       "Bash(cmd:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(7z:*)",
+      "Bash(docker-compose up:*)"
     ]
   }
 }
